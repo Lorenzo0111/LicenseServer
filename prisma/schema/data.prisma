@@ -1,0 +1,23 @@
+model Product {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    licenses License[]
+}
+
+model License {
+    key String @id @default(cuid())
+
+    ips    String[]
+    maxIps Int
+
+    createdAt DateTime  @default(now())
+    lastUsed  DateTime?
+    expiresAt DateTime?
+
+    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    productId Int
+
+    user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+    userId String?
+}
