@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { admin } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -11,18 +11,7 @@ export const GET = async () => {
 const requestSchema = z.object({
   name: z.string(),
 });
-export const PUT = auth(async (req) => {
-  if (!req.auth?.user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const user = await prisma.user.findUnique({
-    where: { id: req.auth.user.id },
-    select: { admin: true },
-  });
-
-  if (!user?.admin)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
+export const PUT = admin(async (req) => {
   const json = await req.json();
   const data = requestSchema.safeParse(json);
 

@@ -1,23 +1,11 @@
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const requestSchema = z.object({
   key: z.string(),
 });
-export const POST = auth(async (req) => {
-  if (!req.auth?.user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const user = await prisma.user.findUnique({
-    where: { id: req.auth.user.id },
-    select: { admin: true },
-  });
-
-  if (!user?.admin)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
+export const POST = async (req: NextRequest) => {
   const json = await req.json();
   const data = requestSchema.safeParse(json);
 
@@ -77,4 +65,4 @@ export const POST = auth(async (req) => {
     success: true,
     username: license.user?.name || null,
   });
-});
+};

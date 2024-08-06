@@ -1,19 +1,8 @@
-import { auth } from "@/lib/auth";
+import { admin } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export const GET = auth(async (req) => {
-  if (!req.auth?.user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const user = await prisma.user.findUnique({
-    where: { id: req.auth.user.id },
-    select: { admin: true },
-  });
-
-  if (!user?.admin)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
+export const GET = admin(async () => {
   const users = await prisma.user.findMany({
     select: {
       id: true,
