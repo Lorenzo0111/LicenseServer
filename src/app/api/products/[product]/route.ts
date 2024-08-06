@@ -2,10 +2,14 @@ import { admin } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export const GET = async ({ params: { id } }: { params: { id: string } }) => {
+export const GET = async ({
+  params: { product: productId },
+}: {
+  params: { product: string };
+}) => {
   const product = await prisma.product.findUnique({
     where: {
-      id: parseInt(id) || -1,
+      id: parseInt(productId) || -1,
     },
   });
 
@@ -13,12 +17,12 @@ export const GET = async ({ params: { id } }: { params: { id: string } }) => {
 };
 
 export const DELETE = admin(async (_, { params }) => {
-  if (!params?.id || typeof params.id !== "string")
+  if (!params?.product || typeof params.product !== "string")
     return NextResponse.json({ error: "Invalid product ID" }, { status: 400 });
 
   const product = await prisma.product.delete({
     where: {
-      id: parseInt(params.id) || -1,
+      id: parseInt(params.product) || -1,
     },
   });
 
