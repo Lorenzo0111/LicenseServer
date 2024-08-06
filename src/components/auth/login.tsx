@@ -7,7 +7,7 @@ export default function Login() {
       action={async () => {
         "use server";
 
-        await signIn("github");
+        await signIn("discord");
       }}
     >
       <Button type="submit">Login</Button>
