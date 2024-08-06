@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const GET = auth(async (req) => {
   if (!req.auth?.user)
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const user = await prisma.user.findUnique({
     where: { id: req.auth.user.id },
@@ -12,7 +12,7 @@ export const GET = auth(async (req) => {
   });
 
   if (!user?.admin)
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const users = await prisma.user.findMany({
     select: {
