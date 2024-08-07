@@ -1,5 +1,7 @@
-import { Product } from "@/components/dashboard/products/product";
-import { Button } from "@/components/ui/button";
+import {
+  CreateProduct,
+  Product,
+} from "@/components/dashboard/products/product";
 import { prisma } from "@/lib/prisma";
 
 async function getProducts() {
@@ -22,7 +24,7 @@ export default async function Products() {
     <main className="w-full p-4">
       <div className="mb-3 flex w-full items-center justify-between">
         <h1 className="text-2xl font-bold">Products</h1>
-        <Button>New product</Button>
+        <CreateProduct />
       </div>
 
       <div className="flex flex-wrap gap-3">
