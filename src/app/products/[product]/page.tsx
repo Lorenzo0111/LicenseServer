@@ -1,6 +1,8 @@
-import { License } from "@/components/dashboard/licenses/license";
-import { UpdateProduct } from "@/components/dashboard/products/product";
-import { Button } from "@/components/ui/button";
+import {
+  CreateLicense,
+  License,
+} from "@/components/dashboard/license";
+import { UpdateProduct } from "@/components/dashboard/product";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
@@ -16,6 +18,16 @@ async function getLicenses(id: string) {
   });
 }
 
+async function getUsers() {
+  return await prisma.user.findMany({
+    select: {
+      id: true,
+      email: true,
+      name: true,
+    },
+  });
+}
+
 export default async function Product({
   params,
 }: {
@@ -25,6 +37,7 @@ export default async function Product({
   if (!product) return notFound();
 
   const licenses = await getLicenses(params.product);
+  const users = await getUsers();
 
   return (
     <main className="w-full p-4">
@@ -36,7 +49,7 @@ export default async function Product({
 
       <div className="mb-3 mt-10 flex w-full items-center justify-between">
         <h1 className="text-2xl font-bold">Licenses ({licenses.length})</h1>
-        <Button>Create</Button>
+        <CreateLicense product={product.id} products={[]} users={users} />
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

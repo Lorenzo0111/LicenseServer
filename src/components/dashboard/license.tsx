@@ -41,6 +41,7 @@ export function License({ license }: { license: LicenseType }) {
 export function CreateLicense({
   products,
   users,
+  product: productId,
 }: {
   products: Product[];
   users: {
@@ -48,6 +49,7 @@ export function CreateLicense({
     name: string | null;
     email: string | null;
   }[];
+  product?: number;
 }) {
   const { toast } = useToast();
   const router = useRouter();
@@ -71,7 +73,7 @@ export function CreateLicense({
             e.preventDefault();
 
             const data = new FormData(e.target as HTMLFormElement);
-            const product = data.get("product") as string;
+            const product = productId || (data.get("product") as string);
             const maxIps = data.get("maxIps") as string;
             const expiresAt = data.get("expiresAt") as string | null;
             const userId = data.get("userId") as string | null;
@@ -96,18 +98,20 @@ export function CreateLicense({
               });
           }}
         >
-          <Select name="product" required>
-            <SelectTrigger className="mb-3 w-full">
-              <SelectValue placeholder="Product" />
-            </SelectTrigger>
-            <SelectContent>
-              {products.map((product) => (
-                <SelectItem key={product.id} value={product.id.toString()}>
-                  {product.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {!productId && (
+            <Select name="product" required>
+              <SelectTrigger className="mb-3 w-full">
+                <SelectValue placeholder="Product" />
+              </SelectTrigger>
+              <SelectContent>
+                {products.map((product) => (
+                  <SelectItem key={product.id} value={product.id.toString()}>
+                    {product.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
 
           <div className="flex gap-3">
             <Input type="number" name="maxIps" placeholder="Max Ips" />

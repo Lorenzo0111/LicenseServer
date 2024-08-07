@@ -1,4 +1,4 @@
-import { UpdateLicense } from "@/components/dashboard/licenses/license";
+import { UpdateLicense } from "@/components/dashboard/license";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 

@@ -1,7 +1,4 @@
-import {
-  CreateProduct,
-  Product,
-} from "@/components/dashboard/products/product";
+import { CreateProduct, Product } from "@/components/dashboard/product";
 import { prisma } from "@/lib/prisma";
 
 async function getProducts() {

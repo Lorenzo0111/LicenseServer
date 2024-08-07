@@ -1,7 +1,4 @@
-import {
-  CreateLicense,
-  License,
-} from "@/components/dashboard/licenses/license";
+import { CreateLicense, License } from "@/components/dashboard/license";
 import { prisma } from "@/lib/prisma";
 
 async function getLicenses() {
