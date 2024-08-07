@@ -29,7 +29,9 @@ export const PATCH = admin(async (req, { params }) => {
     },
     data: {
       maxIps: data.data.maxIps,
-      expiresAt: new Date(data.data.expiresAt),
+      expiresAt: data.data.expiresAt
+        ? new Date(data.data.expiresAt)
+        : undefined,
       userId: data.data.userId,
     },
   });

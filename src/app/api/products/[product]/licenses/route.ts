@@ -18,7 +18,7 @@ export const GET = admin(async (_, { params }) => {
 
 export const requestSchema = z.object({
   maxIps: z.number().int().positive().max(999),
-  expiresAt: z.string().date(),
+  expiresAt: z.string().date().optional(),
   userId: z.string().optional(),
 });
 export const PUT = admin(async (req, { params }) => {
@@ -38,7 +38,9 @@ export const PUT = admin(async (req, { params }) => {
   const license = await prisma.license.create({
     data: {
       maxIps: data.data.maxIps,
-      expiresAt: new Date(data.data.expiresAt),
+      expiresAt: data.data.expiresAt
+        ? new Date(data.data.expiresAt)
+        : undefined,
       productId: parseInt(params.product),
       userId: data.data.userId,
     },
