@@ -8,7 +8,7 @@ export const GET = async () => {
   return NextResponse.json(products);
 };
 
-const requestSchema = z.object({
+export const requestSchema = z.object({
   name: z.string(),
 });
 export const PUT = admin(async (req) => {

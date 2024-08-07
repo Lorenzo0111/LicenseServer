@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 import type { Product as ProductType } from "@prisma/client";
 import axios from "axios";
 import { Plus } from "lucide-react";
@@ -91,5 +92,41 @@ export function CreateProduct() {
         </form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function UpdateProduct({ product }: { product: ProductType }) {
+  const { toast } = useToast();
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        const data = new FormData(e.target as HTMLFormElement);
+        const name = data.get("name") as string;
+
+        axios
+          .patch(`/api/products/${product.id}`, { name })
+          .then(() => {
+            toast({
+              description: "Product updated",
+            });
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          })
+          .catch((error) => {
+            alert(error.response.data.error);
+          });
+      }}
+    >
+      <Label>Name</Label>
+      <div className="flex gap-3">
+        <Input name="name" defaultValue={product.name} placeholder="Name" />
+        <Button>Save</Button>
+      </div>
+    </form>
   );
 }

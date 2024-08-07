@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { auth } from "@/lib/auth";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default async function RootLayout({
       >
         <Sidebar session={session} />
         {children}
+        <Toaster />
       </body>
     </html>
   );
