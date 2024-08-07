@@ -5,6 +5,7 @@ import { ButtonLink } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { Session } from "next-auth";
+import { ThemeSwitch } from "./theme-switch";
 
 export function SidebarLink({
   href,
@@ -41,11 +42,9 @@ export function Sidebar({ session }: { session: Session | null }) {
       <SidebarLink href="/products" icon={<Package size={24} />} />
       <SidebarLink href="/licenses" icon={<Code size={24} />} />
       <SidebarLink href="/users" icon={<Users size={24} />} />
-      <SidebarLink
-        href="/account"
-        icon={<UserCircle size={24} />}
-        className="mt-auto"
-      />
+
+      <ThemeSwitch className="mt-auto" />
+      <SidebarLink href="/account" icon={<UserCircle size={24} />} />
     </nav>
   );
 }

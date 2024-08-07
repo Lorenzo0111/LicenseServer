@@ -1,5 +1,5 @@
 import Login from "@/components/auth/login";
-import { LicensesChart, StatChart } from "@/components/dashboard/home/charts";
+import { StatChart } from "@/components/dashboard/home/charts";
 import { auth } from "@/lib/auth";
 
 export default async function Home() {
