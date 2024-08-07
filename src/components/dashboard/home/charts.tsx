@@ -1,35 +1,44 @@
 "use client";
 
-import type { ChartConfig } from "@/components/ui/chart";
-import { BarChart, LineChart } from "./chart-item";
+import { useFetcher } from "@/components/fetcher";
+import { useMemo } from "react";
+import { LineChart } from "./chart-item";
+import { capitalize } from "@/lib/utils";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+export function StatChart({ type }: { type: string }) {
+  const { data: usage } = useFetcher<
+    {
+      key: string;
+      createdAt: string;
+    }[]
+  >(`/api/stats?type=${type}`);
+  const chartData = useMemo(() => {
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    if (!usage) return months.map((month) => ({ month, [type]: 0 }));
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  },
-} satisfies ChartConfig;
+    const items = usage.reduce((acc, { createdAt }) => {
+      const month = new Date(createdAt).getMonth();
+      acc[month] = acc[month] ? acc[month] + 1 : 1;
+      return acc;
+    }, Array(12).fill(0));
 
-export function LicensesChart() {
+    return months.map((month) => ({
+      month,
+      [type]: items[month - 1],
+    }));
+  }, [usage, type]);
+
   return (
     <LineChart
-      title="Example Chart"
+      title={capitalize(type)}
       data={chartData}
-      keys={["desktop", "mobile"]}
-      config={chartConfig}
+      keys={[type]}
+      config={{
+        [type]: {
+          label: capitalize(type),
+          color: "#e11d48",
+        },
+      }}
     />
   );
 }
