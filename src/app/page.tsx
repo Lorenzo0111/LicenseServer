@@ -1,6 +1,7 @@
-import Login from "@/components/auth/login";
+import { Login, Logout } from "@/components/auth";
 import { StatChart } from "@/components/dashboard/home/charts";
 import { auth } from "@/lib/auth";
+import { isAdmin } from "@/lib/backend";
 
 export default async function Home() {
   const session = await auth();
@@ -9,6 +10,20 @@ export default async function Home() {
     return (
       <main className="m-auto">
         <Login />
+      </main>
+    );
+
+  if (!(await isAdmin(session.user.id)))
+    return (
+      <main className="m-auto">
+        <div className="flex items-center gap-3">
+          <h1 className="text-4xl font-bold">401</h1>
+          <div>
+            <h2 className="text-2xl font-bold">Unauthorized!</h2>
+            <p>This resource cannot be accessed.</p>
+          </div>
+        </div>
+        <Logout className="mt-3 w-full" />
       </main>
     );
 

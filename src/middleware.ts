@@ -6,3 +6,7 @@ export default auth((req) => {
     return Response.redirect(newUrl);
   }
 });
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};

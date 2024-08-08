@@ -1,6 +1,6 @@
 import { License } from "@/components/dashboard/license";
+import { UpdateUserRole } from "@/components/dashboard/user";
 import { prisma } from "@/lib/prisma";
-import axios from "axios";
 import { notFound } from "next/navigation";
 
 async function getUser(id: string) {
@@ -32,38 +32,7 @@ export default async function UserPage({
     <main className="w-full p-4">
       <div className="mb-3 flex w-full items-center justify-between">
         <h1 className="text-2xl font-bold">
-          {user.name}{" "}
-          {user.admin ? (
-            <button
-              onClick={() => {
-                axios
-                  .patch(`/api/users/${user.id}`, {
-                    admin: false,
-                  })
-                  .then(() => {
-                    window.location.reload();
-                  });
-              }}
-              className="rounded-xl bg-primary px-2 text-sm"
-            >
-              ADMIN
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                axios
-                  .patch(`/api/users/${user.id}`, {
-                    admin: true,
-                  })
-                  .then(() => {
-                    window.location.reload();
-                  });
-              }}
-              className="rounded-xl bg-secondary px-2 text-sm"
-            >
-              USER
-            </button>
-          )}
+          {user.name} <UpdateUserRole user={user} />
         </h1>
       </div>
 
