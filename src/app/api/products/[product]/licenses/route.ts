@@ -1,7 +1,6 @@
-import { admin } from "@/lib/backend";
+import { admin, licenseSchema } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 export const GET = admin(async (_, { params }) => {
   if (!params?.product || typeof params.product !== "string")
@@ -16,17 +15,12 @@ export const GET = admin(async (_, { params }) => {
   return NextResponse.json(licenses);
 });
 
-export const requestSchema = z.object({
-  maxIps: z.number().int().positive().max(999),
-  expiresAt: z.string().date().optional(),
-  userId: z.string().optional(),
-});
 export const PUT = admin(async (req, { params }) => {
   if (!params?.product || typeof params.product !== "string")
     return NextResponse.json({ error: "Invalid product ID" }, { status: 400 });
 
   const json = await req.json();
-  const data = requestSchema.safeParse(json);
+  const data = licenseSchema.safeParse(json);
 
   if (!data.success) {
     return NextResponse.json(

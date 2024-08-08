@@ -2,6 +2,7 @@ import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 import { prisma } from "./prisma";
+import { z } from "zod";
 
 type NextAuthRequest = NextRequest & {
   auth: Session | null;
@@ -42,3 +43,21 @@ export async function isAdmin(id: string) {
     })
     .then((user) => user?.admin ?? false);
 }
+
+export const nameSchema = z.object({
+  name: z.string(),
+});
+
+export const adminSchema = z.object({
+  admin: z.boolean(),
+});
+
+export const keySchema = z.object({
+  key: z.string(),
+});
+
+export const licenseSchema = z.object({
+  maxIps: z.number().int().positive().max(999),
+  expiresAt: z.string().date().optional(),
+  userId: z.string().optional(),
+});

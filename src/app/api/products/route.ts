@@ -1,19 +1,15 @@
-import { admin } from "@/lib/backend";
+import { admin, nameSchema } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 export const GET = async () => {
   const products = await prisma.product.findMany();
   return NextResponse.json(products);
 };
 
-export const requestSchema = z.object({
-  name: z.string(),
-});
 export const PUT = admin(async (req) => {
   const json = await req.json();
-  const data = requestSchema.safeParse(json);
+  const data = nameSchema.safeParse(json);
 
   if (!data.success) {
     return NextResponse.json(

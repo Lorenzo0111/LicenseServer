@@ -1,13 +1,15 @@
-import { admin } from "@/lib/backend";
+import { admin, nameSchema } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
-import { requestSchema } from "../route";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async ({
-  params: { product: productId },
-}: {
-  params: { product: string };
-}) => {
+export const GET = async (
+  _: NextRequest,
+  {
+    params: { product: productId },
+  }: {
+    params: { product: string };
+  },
+) => {
   const product = await prisma.product.findUnique({
     where: {
       id: parseInt(productId) || -1,
@@ -22,7 +24,7 @@ export const PATCH = admin(async (req, { params }) => {
     return NextResponse.json({ error: "Invalid product ID" }, { status: 400 });
 
   const json = await req.json();
-  const data = requestSchema.safeParse(json);
+  const data = nameSchema.safeParse(json);
 
   if (!data.success) {
     return NextResponse.json(

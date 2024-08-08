@@ -1,7 +1,6 @@
-import { admin } from "@/lib/backend";
+import { admin, licenseSchema } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { requestSchema } from "../route";
 
 export const PATCH = admin(async (req, { params }) => {
   if (
@@ -13,7 +12,7 @@ export const PATCH = admin(async (req, { params }) => {
     return NextResponse.json({ error: "Invalid license ID" }, { status: 400 });
 
   const json = await req.json();
-  const data = requestSchema.safeParse(json);
+  const data = licenseSchema.safeParse(json);
 
   if (!data.success) {
     return NextResponse.json(

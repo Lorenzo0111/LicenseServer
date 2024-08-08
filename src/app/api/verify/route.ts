@@ -1,13 +1,10 @@
+import { keySchema } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
-const requestSchema = z.object({
-  key: z.string(),
-});
 export const POST = async (req: NextRequest) => {
   const json = await req.json();
-  const data = requestSchema.safeParse(json);
+  const data = keySchema.safeParse(json);
 
   if (!data.success) {
     return NextResponse.json(
