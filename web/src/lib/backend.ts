@@ -18,7 +18,11 @@ export const admin = (
     context: AppRouteHandlerFnContext,
   ) => Promise<NextResponse>,
 ) =>
-  auth(async (req, context) => {
+  auth(async (req: NextAuthRequest, context) => {
+    const authToken = req.headers.get("Authorization");
+    if (authToken && authToken.split(" ")[1] === process.env.BACKEND_SECRET)
+      return fun(req, context);
+
     if (!req.auth?.user)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
