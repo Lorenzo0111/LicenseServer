@@ -6,7 +6,7 @@ export const GET = admin(async (_, { params }) => {
   if (!params?.user || typeof params.user !== "string")
     return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
 
-  const users = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: params.user,
     },
@@ -18,7 +18,7 @@ export const GET = admin(async (_, { params }) => {
     },
   });
 
-  return NextResponse.json(users);
+  return NextResponse.json(user);
 });
 
 export const PATCH = admin(async (req, { params }) => {
