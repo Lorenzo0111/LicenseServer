@@ -1,6 +1,6 @@
 import { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
-import { fetcher } from "../lib/fetcher";
+import { fetcher } from "../lib/fetcher.js";
 
 @Discord()
 export class StatusCommand {

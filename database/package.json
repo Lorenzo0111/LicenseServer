@@ -1,0 +1,27 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./dist/index.js"
+    },
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate --no-hints",
+    "db:push": "prisma db push",
+    "build": "tsc",
+    "postinstall": "prisma generate --no-hints"
+  },
+  "devDependencies": {
+    "prisma": "5.18.0",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.18.0"
+  }
+}

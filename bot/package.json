@@ -7,13 +7,13 @@
   "main": "build/main.js",
   "scripts": {
     "build": "tsc",
-    "dev": "node --loader ts-node/esm/transpile-only src/main.ts",
     "start": "node build/main.js",
-    "watch": "nodemon --exec npm run dev --watch src --ext ts"
+    "dev": "nodemon --exec \"node --loader ts-node/esm/transpile-only src/main.ts\" --watch src --ext ts"
   },
   "dependencies": {
     "@discordx/importer": "^1.3.1",
     "axios": "^1.7.3",
+    "database": "workspace:*",
     "discord.js": "^14.15.3",
     "discordx": "^11.11.1"
   },

@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import type { License, License as LicenseType, Product } from "@prisma/client";
+import type { License, License as LicenseType, Product } from "database/types";
 import axios from "axios";
 import { Plus } from "lucide-react";
 import Link from "next/link";

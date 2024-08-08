@@ -1848,6 +1848,7 @@ __metadata:
     "@discordx/importer": "npm:^1.3.1"
     "@types/node": "npm:^20.14.4"
     axios: "npm:^1.7.3"
+    database: "workspace:*"
     discord.js: "npm:^14.15.3"
     discordx: "npm:^11.11.1"
     nodemon: "npm:^3.1.3"
@@ -2240,6 +2241,17 @@ __metadata:
   checksum: 10c0/21b0d2e53fd6e20cc4257c873bf6d36d77bd6185624b84076c0a1ddaa757b49aaf076254006341d35568e89f52eecd1ccb1a502cfb620f2beca04f48a6a62a8f
   languageName: node
   linkType: hard
+
+"database@workspace:*, database@workspace:database":
+  version: 0.0.0-use.local
+  resolution: "database@workspace:database"
+  dependencies:
+    "@prisma/client": "npm:^5.18.0"
+    prisma: "npm:5.18.0"
+    tsx: "npm:^4.17.0"
+    typescript: "npm:^5.5.4"
+  languageName: unknown
+  linkType: soft
 
 "debug@npm:4, debug@npm:^4, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.6
@@ -4904,7 +4916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^5.18.0":
+"prisma@npm:5.18.0":
   version: 5.18.0
   resolution: "prisma@npm:5.18.0"
   dependencies:
@@ -6062,7 +6074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5":
+"typescript@npm:^5, typescript@npm:^5.5.4":
   version: 5.5.4
   resolution: "typescript@npm:5.5.4"
   bin:
@@ -6082,7 +6094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.4#optional!builtin<compat/typescript>":
   version: 5.5.4
   resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"
   bin:
@@ -6240,7 +6252,6 @@ __metadata:
   resolution: "web@workspace:web"
   dependencies:
     "@auth/prisma-adapter": "npm:^2.4.2"
-    "@prisma/client": "npm:^5.18.0"
     "@radix-ui/react-dialog": "npm:^1.1.1"
     "@radix-ui/react-label": "npm:^2.1.0"
     "@radix-ui/react-select": "npm:^2.1.1"
@@ -6253,6 +6264,7 @@ __metadata:
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
     commander: "npm:^12.1.0"
+    database: "workspace:*"
     dotenv: "npm:^16.4.5"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.5"
@@ -6262,7 +6274,6 @@ __metadata:
     postcss: "npm:^8"
     prettier: "npm:^3.3.3"
     prettier-plugin-tailwindcss: "npm:^0.6.5"
-    prisma: "npm:^5.18.0"
     react: "npm:^18"
     react-dom: "npm:^18"
     recharts: "npm:2.13.0-alpha.4"
