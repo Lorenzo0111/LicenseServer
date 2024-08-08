@@ -145,13 +145,15 @@ export function CreateLicense({
 export function UpdateLicense({
   license,
   users,
+  disabled,
 }: {
   license: LicenseType;
   users: {
     id: string;
-    name: string | null;
-    email: string | null;
+    name?: string | null;
+    email?: string | null;
   }[];
+  disabled: boolean;
 }) {
   const { toast } = useToast();
 
@@ -193,15 +195,21 @@ export function UpdateLicense({
           name="maxIps"
           placeholder="Max Ips"
           defaultValue={license.maxIps}
+          disabled={disabled}
         />
         <Input
           type="date"
           name="expiresAt"
           defaultValue={license.expiresAt?.toISOString().split("T")[0]}
+          disabled={disabled}
         />
       </div>
 
-      <Select defaultValue={license.userId ?? undefined} name="userId">
+      <Select
+        defaultValue={license.userId ?? undefined}
+        name="userId"
+        disabled={disabled}
+      >
         <SelectTrigger className="mt-3 w-full">
           <SelectValue placeholder="User" />
         </SelectTrigger>
@@ -214,7 +222,23 @@ export function UpdateLicense({
         </SelectContent>
       </Select>
 
-      <Button className="mt-3 w-full">Save</Button>
+      <Button className="mt-3 w-full" disabled={disabled}>
+        Save
+      </Button>
     </form>
+  );
+}
+
+export function LicenseIp({ ip }: { ip: string }) {
+  return (
+    <button onClick={() => {
+      
+    }}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{ip}</CardTitle>
+        </CardHeader>
+      </Card>
+    </button>
   );
 }

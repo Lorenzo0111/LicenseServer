@@ -1,7 +1,4 @@
-import {
-  CreateLicense,
-  License,
-} from "@/components/dashboard/license";
+import { CreateLicense, License } from "@/components/dashboard/license";
 import { UpdateProduct } from "@/components/dashboard/product";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -48,11 +45,11 @@ export default async function Product({
       <UpdateProduct product={product} />
 
       <div className="mb-3 mt-10 flex w-full items-center justify-between">
-        <h1 className="text-2xl font-bold">Licenses ({licenses.length})</h1>
+        <h2 className="text-2xl font-bold">Licenses ({licenses.length})</h2>
         <CreateLicense product={product.id} products={[]} users={users} />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-wrap gap-3">
         {licenses.map((license) => (
           <License key={license.key} license={license} />
         ))}
