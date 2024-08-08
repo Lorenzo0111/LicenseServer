@@ -53,7 +53,7 @@ export default async function Product({
 
       <div className="flex flex-wrap gap-3">
         {license.ips.map((ip) => (
-          <LicenseIp ip={ip} key={ip} />
+          <LicenseIp license={license} ip={ip} key={ip} />
         ))}
       </div>
     </main>

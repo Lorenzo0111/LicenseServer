@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import type { License as LicenseType, Product } from "@prisma/client";
+import type { License, License as LicenseType, Product } from "@prisma/client";
 import axios from "axios";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -229,11 +229,27 @@ export function UpdateLicense({
   );
 }
 
-export function LicenseIp({ ip }: { ip: string }) {
+export function LicenseIp({ license, ip }: { license: License; ip: string }) {
+  const { toast } = useToast();
+
   return (
-    <button onClick={() => {
-      
-    }}>
+    <button
+      onClick={() => {
+        axios
+          .delete(
+            `/api/products/${license.productId}/licenses/${license.key}/ips?ip=${ip}`,
+          )
+          .then(() => {
+            toast({
+              description: "IP removed",
+            });
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          });
+      }}
+    >
       <Card>
         <CardHeader>
           <CardTitle>{ip}</CardTitle>

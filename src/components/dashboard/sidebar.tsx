@@ -33,15 +33,21 @@ export function SidebarLink({
   );
 }
 
-export function Sidebar({ session }: { session: Session | null }) {
+export function Sidebar({
+  session,
+  admin,
+}: {
+  session: Session | null;
+  admin: boolean;
+}) {
   if (!session?.user) return null;
 
   return (
     <nav className="flex h-screen w-20 flex-col items-center gap-3 border-r py-4">
-      <SidebarLink href="/" icon={<Home size={24} />} />
-      <SidebarLink href="/products" icon={<Package size={24} />} />
-      <SidebarLink href="/licenses" icon={<Code size={24} />} />
-      <SidebarLink href="/users" icon={<Users size={24} />} />
+      {admin && <SidebarLink href="/" icon={<Home size={24} />} />}
+      {admin && <SidebarLink href="/products" icon={<Package size={24} />} />}
+      {admin && <SidebarLink href="/licenses" icon={<Code size={24} />} />}
+      {admin && <SidebarLink href="/users" icon={<Users size={24} />} />}
 
       <ThemeSwitch className="mt-auto" />
       <SidebarLink href="/account" icon={<UserCircle size={24} />} />

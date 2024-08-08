@@ -33,7 +33,9 @@ export const admin = (
     return fun(req, context);
   });
 
-export async function isAdmin(id: string) {
+export async function isAdmin(id: string | null) {
+  if (!id) return false;
+
   return await prisma.user
     .findUnique({
       where: {

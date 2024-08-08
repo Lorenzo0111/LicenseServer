@@ -26,6 +26,11 @@ export const POST = async (req: NextRequest) => {
           name: true,
         },
       },
+      product: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 
@@ -61,5 +66,6 @@ export const POST = async (req: NextRequest) => {
   return NextResponse.json({
     success: true,
     username: license.user?.name || null,
+    product: license.product.name,
   });
 };

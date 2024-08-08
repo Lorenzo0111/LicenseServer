@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { auth } from "@/lib/auth";
 import { Toaster } from "@/components/ui/toaster";
+import { isAdmin } from "@/lib/backend";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  const admin = await isAdmin(session?.user.id ?? null);
 
   return (
     <html lang="en">
@@ -31,7 +33,7 @@ export default async function RootLayout({
           fontSans.variable,
         )}
       >
-        <Sidebar session={session} />
+        <Sidebar session={session} admin={admin} />
         {children}
         <Toaster />
       </body>
