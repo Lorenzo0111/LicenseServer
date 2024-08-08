@@ -6,7 +6,8 @@
     "lint": "turbo lint"
   },
   "workspaces": [
-    "web"
+    "web",
+    "bot"
   ],
   "devDependencies": {
     "turbo": "^2.0.12"
