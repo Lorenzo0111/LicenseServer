@@ -1,5 +1,6 @@
 import { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
+import { buildEmbed } from "../lib/embeds.js";
 import { fetcher } from "../lib/fetcher.js";
 
 @Discord()
@@ -14,7 +15,11 @@ export class StatusCommand {
     const apiStatus = data.status;
 
     interaction.editReply({
-      content: `Bot status: online\nAPI status: ${apiStatus}`,
+      embeds: [
+        buildEmbed().setDescription(
+          `Bot status: online\nAPI status: ${apiStatus}`
+        ),
+      ],
     });
   }
 }

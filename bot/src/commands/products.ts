@@ -1,7 +1,8 @@
+import type { Product } from "database";
 import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
+import { buildEmbed, error } from "../lib/embeds.js";
 import { fetcher } from "../lib/fetcher.js";
-import type { Product } from "database";
 
 @Discord()
 @SlashGroup({ name: "products", description: "Manage products" })
@@ -11,10 +12,21 @@ export class ProductsCommand {
   async list(interaction: CommandInteraction) {
     await interaction.deferReply();
 
-    const { data } = await fetcher.get<Product[]>("/api/products");
-    const products = data.map((product) => `${product.id} - ${product.name}`);
+    const { data: products } = await fetcher.get<Product[]>("/api/products");
+
     await interaction.editReply(
-      products.length === 0 ? "No products found" : products.join("\n")
+      products.length === 0
+        ? error("No product found")
+        : {
+            embeds: [
+              buildEmbed().setFields(
+                products.map((product) => ({
+                  name: product.name,
+                  value: `ID: \`${product.name}\``,
+                }))
+              ),
+            ],
+          }
     );
   }
 
@@ -32,10 +44,17 @@ export class ProductsCommand {
     await interaction.deferReply({ ephemeral: true });
 
     try {
-      await fetcher.put("/api/products", { name });
-      await interaction.editReply("Product created successfully");
-    } catch (error) {
-      await interaction.editReply("Failed to create product");
+      const { data } = await fetcher.put<Product>("/api/products", { name });
+
+      await interaction.editReply({
+        embeds: [
+          buildEmbed()
+            .setTitle(`Product created`)
+            .setDescription(`Name: ${data.name}\nID: \`${data.id}\``),
+        ],
+      });
+    } catch (_) {
+      await interaction.editReply(error("Failed to create product"));
     }
   }
 }

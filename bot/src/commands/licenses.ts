@@ -124,8 +124,8 @@ export class LicensesCommand {
             .setDescription(`> Key: \`${data.key}\``),
         ],
       });
-    } catch (error) {
-      await interaction.editReply("Failed to create license");
+    } catch (_) {
+      await interaction.editReply(error("Failed to create license"));
     }
   }
 }
