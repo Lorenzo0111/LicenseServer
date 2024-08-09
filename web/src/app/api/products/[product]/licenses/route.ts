@@ -10,6 +10,11 @@ export const GET = admin(async (_, { params }) => {
     where: {
       productId: parseInt(params.product) || -1,
     },
+    include: {
+      product: {
+        select: { name: true },
+      },
+    },
   });
 
   return NextResponse.json(licenses);

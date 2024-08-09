@@ -19,7 +19,13 @@ export const GET = admin(async (_, { params }) => {
       id: true,
       name: true,
       email: true,
-      licenses: true,
+      licenses: {
+        include: {
+          product: {
+            select: { name: true },
+          },
+        },
+      },
     },
   });
 

@@ -24,6 +24,7 @@ export class ProductsCommand {
       name: "name",
       description: "The name of the product",
       type: ApplicationCommandOptionType.String,
+      required: true,
     })
     name: string,
     interaction: CommandInteraction
@@ -31,12 +32,10 @@ export class ProductsCommand {
     await interaction.deferReply({ ephemeral: true });
 
     try {
-      await fetcher.put<Product[]>("/api/products", { name });
-
+      await fetcher.put("/api/products", { name });
       await interaction.editReply("Product created successfully");
     } catch (error) {
       await interaction.editReply("Failed to create product");
-      return;
     }
   }
 }
