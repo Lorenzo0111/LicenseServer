@@ -1,8 +1,10 @@
 import { admin, nameSchema } from "@/lib/backend";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
+export const dynamic = "force-dynamic";
+
+export const GET = async (_req: NextRequest) => {
   const products = await prisma.product.findMany();
   return NextResponse.json(products);
 };

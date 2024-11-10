@@ -1,6 +1,8 @@
 import { CreateProduct, Product } from "@/components/dashboard/product";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 async function getProducts() {
   return await prisma.product.findMany({
     include: {

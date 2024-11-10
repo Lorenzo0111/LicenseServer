@@ -1,6 +1,8 @@
 import { User } from "@/components/dashboard/user";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 async function getUsers() {
   return await prisma.user.findMany({
     select: {

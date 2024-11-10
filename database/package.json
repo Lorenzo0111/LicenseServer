@@ -17,11 +17,11 @@
     "postinstall": "prisma generate --no-hints"
   },
   "devDependencies": {
-    "prisma": "5.18.0",
-    "tsx": "^4.17.0",
-    "typescript": "^5.5.4"
+    "prisma": "5.22.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@prisma/client": "^5.18.0"
+    "@prisma/client": "^5.22.0"
   }
 }

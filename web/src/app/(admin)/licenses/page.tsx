@@ -1,6 +1,8 @@
 import { CreateLicense, License } from "@/components/dashboard/license";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 async function getLicenses() {
   return await prisma.license.findMany({});
 }
